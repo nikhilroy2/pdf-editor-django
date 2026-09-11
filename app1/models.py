@@ -4,7 +4,7 @@ import uuid
 # Create your models here.
 
 class PDFTranslation(models.Model):
-    class status(models.TextChoices):
+    class Status(models.TextChoices):
         PENDING = 'PENDING', 'Pending'
         PROCESSING = 'PROCESSING', 'Processing'
         COMPLETED = 'COMPLETED', 'Completed'
@@ -13,11 +13,11 @@ class PDFTranslation(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
     original_file = models.FileField(
-        upload_to='pdfs/original/%Y/%n/%d/',
+        upload_to='pdfs/original/%Y/%m/%d/',
         help_text="The source PDF uploaded by the user"
     )
     translated_file = models.FileField(
-        upload_to='pdfs/translated/%Y/%n/%d/',
+        upload_to='pdfs/translated/%Y/%m/%d/',
         blank=True,
         null=True,
         help_text="The newly generated translated PDF"
@@ -28,8 +28,8 @@ class PDFTranslation(models.Model):
 
     status = models.CharField(
         max_length=20,
-        choices=status.choices,
-        default=status.PENDING
+        choices=Status.choices,
+        default=Status.PENDING
     )
     error_message = models.TextField(blank=True, null=True)
 

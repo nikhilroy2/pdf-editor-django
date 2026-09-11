@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import TranslatePDFView
 urlpatterns = [
-    path('translate-pdf', views.TranslatePDF, name="translate_pdf")
+    path('translate-pdf/', TranslatePDFView.as_view(), name="translate_pdf"),
 ]
