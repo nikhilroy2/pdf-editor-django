@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def Index(request):
     return render(request, 'index.html')
+
+def Watermark(request):
+    return render(request, 'watermark.html')
