@@ -1,0 +1,229 @@
+{
+  "info": {
+    "_postman_id": "c8a1e2f4-7b90-4a88-8123-pdfeditor001",
+    "name": "PDF Editor & Translator API",
+    "description": "Postman collection for testing PDF Translation and Watermarking endpoints in the Django PDF Editor project.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Translate PDF (English to Bangla)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/pdf, application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "description": "Upload a .pdf file (e.g. sample_en_technology.pdf)"
+            },
+            {
+              "key": "source_language",
+              "value": "en",
+              "type": "text",
+              "description": "Source language code (default: en)"
+            },
+            {
+              "key": "target_language",
+              "value": "bn",
+              "type": "text",
+              "description": "Target language code (default: bn)"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/translate-pdf/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "translate-pdf",
+            ""
+          ]
+        },
+        "description": "Extracts text from the uploaded PDF, translates it between English and Bangla, and returns a formatted downloadable PDF file."
+      },
+      "response": []
+    },
+    {
+      "name": "2. Translate PDF (Bangla to English)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/pdf, application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "description": "Upload a .pdf file (e.g. sample_bn_history.pdf)"
+            },
+            {
+              "key": "source_language",
+              "value": "bn",
+              "type": "text"
+            },
+            {
+              "key": "target_language",
+              "value": "en",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/translate-pdf/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "translate-pdf",
+            ""
+          ]
+        },
+        "description": "Translates a Bangla PDF to English."
+      },
+      "response": []
+    },
+    {
+      "name": "3. Watermark PDF (Center Diagonal)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/pdf, application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "description": "Source PDF file to watermark"
+            },
+            {
+              "key": "text",
+              "value": "CONFIDENTIAL",
+              "type": "text",
+              "description": "Watermark text string"
+            },
+            {
+              "key": "position",
+              "value": "center",
+              "type": "text",
+              "description": "One of: top-left, top-center, top-right, center, bottom-left, bottom-center, bottom-right"
+            },
+            {
+              "key": "opacity",
+              "value": "0.25",
+              "type": "text",
+              "description": "Float from 0.0 to 1.0 (e.g. 0.25)"
+            },
+            {
+              "key": "color",
+              "value": "#FF0000",
+              "type": "text",
+              "description": "Hex color code (e.g. #FF0000)"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/editor/pdf/watermark",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "editor",
+            "pdf",
+            "watermark"
+          ]
+        },
+        "description": "Stamps a semi-transparent text watermark across all pages of the uploaded PDF and returns the updated PDF."
+      },
+      "response": []
+    },
+    {
+      "name": "4. Watermark PDF (Top-Right Header)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/pdf, application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "description": "Source PDF file"
+            },
+            {
+              "key": "text",
+              "value": "INTERNAL ONLY",
+              "type": "text"
+            },
+            {
+              "key": "position",
+              "value": "top-right",
+              "type": "text"
+            },
+            {
+              "key": "opacity",
+              "value": "0.35",
+              "type": "text"
+            },
+            {
+              "key": "color",
+              "value": "#0055FF",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/editor/pdf/watermark",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "editor",
+            "pdf",
+            "watermark"
+          ]
+        },
+        "description": "Watermarks the top-right header corner of all pages."
+      },
+      "response": []
+    }
+  ]
+}
